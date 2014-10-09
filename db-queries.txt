@@ -1,0 +1,18 @@
+SELECT * FROM quotes;
+SELECT * FROM users;
+SELECT * FROM favorites;
+
+SELECT quotes.author, quotes.quote, quotes.posted_by, quotes.quote_id
+FROM quotes
+LEFT JOIN favorites ON quotes.quote_id = favorites.quote_id
+WHERE favorites.user_id = 1;
+
+SELECT quotes.author, quotes.quote, quotes.posted_by, quotes.quote_id
+FROM quotes
+WHERE quotes.quote_id NOT IN 
+(
+   SELECT quotes.quote_id
+   FROM quotes
+   LEFT JOIN favorites ON quotes.quote_id = favorites.quote_id
+   WHERE favorites.user_id = 1 
+ );
